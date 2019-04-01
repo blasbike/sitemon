@@ -1,0 +1,16 @@
+#!/usr/bin/env php
+<?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use Sitemon\Sitemon;
+use Sitemon\ReportGeneratorText;
+use Sitemon\Actions\BenchmarkAction;
+
+$sitemon = new Sitemon();
+
+unset($argv[0]);
+$benchamrkedSite = $argv[1];
+unset($argv[1]);
+
+echo $sitemon->benchmark($benchamrkedSite, $argv, new ReportGeneratorText());
