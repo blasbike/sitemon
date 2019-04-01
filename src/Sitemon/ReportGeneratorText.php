@@ -19,7 +19,8 @@ class ReportGeneratorText implements ReportGeneratorInterface
         foreach($data as $result) {
 
             $text .= $result->getLoadingTime() . 's' . "\t:" .
-                     $result->getSiteUrl() . ' (' . $result->getDiffToBenchmarkedSite() . 's)' . PHP_EOL;
+                     $result->getSiteUrl() . ' (' . 
+                     ($result->getDiffToBenchmarkedSite() > 0 ? '+' : '' ) . $result->getDiffToBenchmarkedSite() . 's)' . PHP_EOL;
         }
         return $text;
     }
