@@ -6,3 +6,4 @@ $app->setRoutes(array(
                     'benchmark'     => [Sitemon\Actions\BenchmarkAction::class, 'index'],
                     'benchmark/run' => [Sitemon\Actions\BenchmarkAction::class, 'run'])
 );
+$app->setDefaultRoute('benchmark');

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Sitemon\Actions;
 
+use Sitemon\Actions\AbstractAction;
 use Sitemon\Sitemon;
 use Sitemon\CurlHttpClient;
 use Sitemon\Benchmark;
@@ -12,14 +13,14 @@ use Sitemon\ReportGeneratorCSV;
 use Sitemon\FileWriter;
 use Sitemon\MessageEmail;
 
-class BenchmarkAction
+class BenchmarkAction extends AbstractAction
 {
     /**
      * run web action
      * @param  array $params query parameters
      * @return string        HTML to display
      */
-    public function run(array $params): string
+    public function run(array $params): void
     {
 
         $sitemon = new Sitemon();
@@ -37,8 +38,7 @@ class BenchmarkAction
         }
 
         $report = $sitemon->benchmark($benchamrkedSite, $otherSites, new ReportGeneratorHTML());
-
-        return $report;
+        self::loadView('Report', ['report'=>$report]);
     }
 
 
@@ -46,9 +46,8 @@ class BenchmarkAction
      * Generates HTML form
      * @return string   HTML to display
      */
-    public function index(): string
+    public function index(): void
     {
-        include '../src/Sitemon/Views/InputForm.php';
-        return '';
+        self::loadView('InputForm');
     }
 }

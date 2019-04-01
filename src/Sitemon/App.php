@@ -8,7 +8,18 @@ use Exception;
 
 class App
 {
+    /**
+     * routes defined in config/routes.php
+     * @var array
+     */
     private $routes = [];
+
+
+    /**
+     * default route when not provided, defined in config/routes.php
+     * @var string
+     */
+    private $defaultRoute;
 
 
     /**
@@ -16,11 +27,11 @@ class App
      * Returns rendered HTML
      * @return string   HTML to display
      */
-    public function run(): string
+    public function run(): void
     {
-        $actionName = $this->requestGet('action');
+        $actionName = $this->requestGet('action') ?: $this->getDefaultRoute();
 
-        return $this->runAction($actionName);
+        $this->runAction($actionName);
     }
 
 
@@ -29,7 +40,7 @@ class App
      * @param  string $actionName action to run
      * @return string             html to display
      */
-    private function runAction(string $actionName): string
+    private function runAction(string $actionName): void
     {
         $routes = $this->getRoutes();
 
@@ -41,14 +52,25 @@ class App
             throw new Exception(sprintf('Route %s is not callable', json_encode($routes[$actionName])));
         }
 
-        $action = call_user_func($routes[$actionName], $this->requestGetArray('params'));
-        return $action;
+        call_user_func($routes[$actionName], $this->requestGetArray('params'));
     }
 
 
     public function setRoutes(array $routes): void
     {
         $this->routes = $routes;
+    }
+
+
+    public function setDefaultRoute(string $route): void
+    {
+        $this->defaultRoute = $route;
+    }
+
+
+    public function getDefaultRoute(): string
+    {
+        return $this->defaultRoute;
     }
 
 

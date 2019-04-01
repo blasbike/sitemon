@@ -15,13 +15,13 @@ class ReportGeneratorCSV implements ReportGeneratorInterface
      */
     public function generateReport(array $data): string
     {
-        $csv = '';
+        $csv = 'Report time: ' . date('Y-m-d H:i:s') . PHP_EOL;
         foreach($data as $result) {
 
-            $csv .= $result->getHttpCode() . ',' .
-                    $result->getSiteUrl() . ',' .
+            $csv .= $result->getSiteUrl() . ',' .
                     $result->getLoadingTime() . ',' .
-                    $result->isBenchmarkedSite() . PHP_EOL;
+                    ($result->getDiffToBenchmarkedSite() > 0 ? '+' : '' ) . 
+                    $result->getDiffToBenchmarkedSite() . PHP_EOL;
         }
         return $csv;
     }
