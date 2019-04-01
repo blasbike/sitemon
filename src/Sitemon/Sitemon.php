@@ -37,7 +37,10 @@ class Sitemon
         $fileWriter = new FileWriter(['filename'=>'log.txt']);
         $fileWriter->writeFile($report);
 
-        //$msg = new MessageEmail('blase@bikestats.pl', $report, 'temat raport');
+        //$msg = new MessageEmail('test@example.com', $report, 'Report subject');
+        //$msg->sendMessage();
+        //
+        //$msg = new MessageText('', $report, 'temat raport');
         //$msg->sendMessage();
 
         // set report generator to display it in a web interface or return in command line
