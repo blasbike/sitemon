@@ -40,7 +40,8 @@ class Sitemon
         //$msg = new MessageEmail('test@example.com', $report, 'Report subject');
         //$msg->sendMessage();
         //
-        //$msg = new MessageText('', $report, 'temat raport');
+        //
+        //$msg = new MessageText('+4844446663', $report);
         //$msg->sendMessage();
 
         // set report generator to display it in a web interface or return in command line
