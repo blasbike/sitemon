@@ -28,7 +28,7 @@ class ReportGeneratorHTML implements ReportGeneratorInterface
             '<tr>
                 <td width="100">' . $result->getHttpCode() . '</td>
                 <td width="100" align="right">' . $result->getLoadingTime() . '</td>
-                <td width="100" align="right">' . $result->getSiteUrl() . '</td>
+                <td width="100" align="right"><strong>' . $result->getSiteUrl() . '</strong></td>
                 <td width="100" align="right">' . 
                     ($result->getDiffToBenchmarkedSite() > 0 ? '+' : '' ) .
                     $result->getDiffToBenchmarkedSite() . 's

@@ -109,7 +109,7 @@ class Benchmark implements BenchmarkInterface
     }
 
 
-    public function getBenchmarkedSiteResult(): BenchmarkResult
+    public function getBenchmarkedSiteResult(): ?BenchmarkResult
     {
         return $this->benchmarkedSiteResult;
     }
@@ -158,6 +158,9 @@ class Benchmark implements BenchmarkInterface
             $this->setBenchmarkedSiteResult($result);
         }
 
-        $result->setDiffToBenchmarkedSite($result->getLoadingTime() - $this->getBenchmarkedSiteResult()->getLoadingTime());
+        $siteres = $this->getBenchmarkedSiteResult();
+        if ($siteres) {
+            $result->setDiffToBenchmarkedSite($result->getLoadingTime() - $siteres->getLoadingTime());
+        }
     }
 }

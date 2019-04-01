@@ -70,7 +70,7 @@ class BenchmarkResult
 
     public function getDiffToBenchmarkedSite(): float
     {
-        return $this->diffToBenchmarkedSite;
+        return $this->diffToBenchmarkedSite ?? 0;
     }
 
 
