@@ -76,7 +76,9 @@ class Benchmark implements BenchmarkInterface
      */
 	public function addUrl(string $url, bool $benchmarkedSite = false): void
     {
-        $this->resultsQueue[] = new BenchmarkResult($url, $benchmarkedSite);
+        if (!empty($url)) {
+            $this->resultsQueue[] = new BenchmarkResult($url, $benchmarkedSite);
+        }
     }
 
 
