@@ -25,12 +25,12 @@ class BenchmarkAction extends AbstractAction
 
         $sitemon = new Sitemon();
 
-        $benchamrkedSite = $params[1];
+        $benchamrkedSite = $params['url'];
 
         // prepare other sites URLs
         $otherSites = [];
-        if (isset($params[2])) {
-            $otherSites = explode(PHP_EOL, $params[2]);
+        if (isset($params['otherurls'])) {
+            $otherSites = explode(PHP_EOL, $params['otherurls']);
 
             if (!is_array($otherSites)) {
                 $otherSites = [];
