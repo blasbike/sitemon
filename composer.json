@@ -1,4 +1,11 @@
 {
+    "name": "blasbike/sitemon",
+    "authors": [
+        {
+            "name": "Blazej Lyjak",
+            "email": "blazej.lyjak@bikestats.pl"
+        }
+    ],
     "require": {
         "php": "^7.2"
     },
