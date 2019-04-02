@@ -39,7 +39,7 @@ class Sitemon
             $benchmark->storeReport(new FileWriter(['filename'=>'log.txt']));
 
             // send messages if necessary
-            $benchmark->processMessages(new MessageEmail('test@example.com'), new MessageText('+482222333'));
+            $benchmark->processMessages(new MessageEmail('blase@bikestats.pl'), new MessageText('+482222333'));
 
             // generates a report with a new generator to display it in a web interface or return in command line
             $report = $benchmark->generateReport($reportGenerator);

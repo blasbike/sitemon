@@ -34,7 +34,7 @@ class MessageEmail implements MessageInterface
     public function sendMessage(): bool
     {
         echo 'sends email to:' . $this->receiver . PHP_EOL;
-        $sent = true;//mail($this->receiver, $this->subject, $this->message);
+        $sent = mail($this->receiver, $this->subject, $this->message);
 
         return $sent;
     }
