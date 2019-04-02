@@ -15,8 +15,9 @@ composer install
 setup email address in Sitemon\Sitemon.php
 
 ## run from console
+```
 ./bin/sitemon site1 [site2 ...]
-
+```
 
 ## run on a web
 navigate to
@@ -30,3 +31,4 @@ type in one URL into the input and some URLs to the textarea, Submit.
 ```
 ./vendor/bin/phpunit --colors tests/
 ```
+
