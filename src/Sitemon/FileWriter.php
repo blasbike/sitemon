@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Sitemon;
 
-use Sitemon\Interfaces\FileWriterInterface;
+use Sitemon\Interfaces\StoreDataInterface;
 
-class FileWriter implements FileWriterInterface
+class FileWriter implements StoreDataInterface
 {
     private $fileName;
 
@@ -32,7 +32,7 @@ class FileWriter implements FileWriterInterface
      * @param  string $data string to write to a file
      * @return bool         false on failure, true on success
      */
-    public function writeFile(string $data): bool
+    public function storeData(string $data): bool
     {
         $return = file_put_contents($this->fileName, $data, LOCK_EX);
         return $return !== false;

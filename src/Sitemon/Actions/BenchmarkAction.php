@@ -18,11 +18,10 @@ class BenchmarkAction extends AbstractAction
     /**
      * run web action
      * @param  array $params query parameters
-     * @return string        HTML to display
+     * @return void
      */
     public function run(array $params): void
     {
-
         $sitemon = new Sitemon();
 
         $benchamrkedSite = $params['url'];

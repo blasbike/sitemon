@@ -9,6 +9,7 @@ use Sitemon\BenchmarkResult;
 use Sitemon\Interfaces\BenchmarkInterface;
 use Sitemon\Interfaces\HttpClientInterface;
 use Sitemon\Interfaces\ReportGeneratorInterface;
+use Sitemon\Interfaces\StoreDataInterface;
 
 class Benchmark implements BenchmarkInterface
 {
@@ -83,7 +84,7 @@ class Benchmark implements BenchmarkInterface
 
 
     /**
-     * adds to a queue a site's URL to test
+     * adds a site's URL to the benchmark queue
      *
      * @param string       $url             URL with or without protocol specified
      * @param bool|boolean $benchmarkedSite a site that is tested agains another sites
@@ -98,20 +99,20 @@ class Benchmark implements BenchmarkInterface
 
     /**
      * add multiple urls to the queue
-     * @param array $urls [description]
+     * 
+     * @param array $urls array of string urls
      */
     public function addUrls(array $urls): void
     {
         foreach($urls as $url) {
-            if (!empty($url)) {
-                $this->resultsQueue[] = new BenchmarkResult($url);
-            }
+            $this->addUrl($url);
         }
     }
 
 
     /**
      * runs a report using selected report generator
+     * 
      * @return string   generated report string
      */
     public function getReport(): string
@@ -123,12 +124,20 @@ class Benchmark implements BenchmarkInterface
     }
 
 
-    public function getBenchmarkedSiteResult(): ?BenchmarkResult
+    /**
+     * 
+     * @return BenchmarkResult
+     */
+    public function getBenchmarkedSiteResult(): BenchmarkResult
     {
         return $this->benchmarkedSiteResult;
     }
 
 
+    /**
+     * 
+     * @param BenchmarkResult $result
+     */
     public function setBenchmarkedSiteResult(BenchmarkResult $result): void
     {
         $this->benchmarkedSiteResult = $result;
@@ -176,5 +185,16 @@ class Benchmark implements BenchmarkInterface
         }
 
         return $result;
+    }
+
+
+    /**
+     * [storeReport description]
+     * @param  StoreDataInterface $store [description]
+     * @return [type]                    [description]
+     */
+    public function storeReport(StoreDataInterface $store): void
+    {
+        $store->storeData($this->getReport());
     }
 }

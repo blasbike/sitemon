@@ -24,8 +24,8 @@ class App
 
     /**
      * Read _GET query and run action with query params
-     * Returns rendered HTML
-     * @return string   HTML to display
+     * Outputs rendered HTML
+     * @return void
      */
     public function run(): void
     {
@@ -36,9 +36,9 @@ class App
 
 
     /**
-     * Run web action from specified route
+     * Run a web action from specified route
      * @param  string $actionName action to run
-     * @return string             html to display
+     * @return void
      */
     private function runAction(string $actionName): void
     {

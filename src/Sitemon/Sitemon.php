@@ -6,10 +6,9 @@ namespace Sitemon;
 
 use \Exception;
 use Sitemon\Interfaces\ReportGeneratorInterface;
-use Sitemon\Interfaces\FileWriterInterface;
 
 /**
- * Sitemon class to perform all benchmark workflow.
+ * Sitemon class to perform all benchmark tasks.
  * Can be called from console or from a web interface
  */
 class Sitemon
@@ -36,11 +35,7 @@ class Sitemon
             // execute benchmark for all added URLs
             $benchmark->execute();
 
-            // generate report from the initial report generator
-            $report = $benchmark->getReport();
-
-            $fileWriter = new FileWriter(['filename'=>'log.txt']);
-            $fileWriter->writeFile($report);
+            $benchmark->storeReport(new FileWriter(['filename'=>'log.txt']));
 
             //$msg = new MessageEmail('test@example.com', $report, 'Report subject');
             //$msg->sendMessage();
