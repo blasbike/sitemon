@@ -23,8 +23,8 @@ class Sitemon
     public function benchmark(string $url, array $urls, ReportGeneratorInterface $reportGenerator): string
     {
         try {
-            // create new benchmark with initial CSV report to write it to a file
-            $benchmark = new Benchmark(new CurlHttpClient(), new ReportGeneratorCSV());
+            // create new benchmark with initial Text report
+            $benchmark = new Benchmark(new CurlHttpClient(), new ReportGeneratorText());
 
             // add benchamrked site
             $benchmark->addUrl($url, true);
