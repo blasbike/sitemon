@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Sitemon;
 
-use Exception;
+use \Exception;
 use Sitemon\BenchmarkResult;
 use Sitemon\Interfaces\BenchmarkInterface;
 use Sitemon\Interfaces\HttpClientInterface;
@@ -60,8 +60,9 @@ class Benchmark implements BenchmarkInterface
 
 
     /**
-     * [setReportGenerator description]
-     * @param ReportGeneratorInterface $reportGenerator [description]
+     * sets report generator used for output reports
+     *
+     * @param ReportGeneratorInterface $reportGenerator
      */
     public function setReportGenerator(ReportGeneratorInterface $reportGenerator): void
     {
@@ -69,10 +70,23 @@ class Benchmark implements BenchmarkInterface
     }
 
 
+    public function setResultsQueue(array $queue): void
+    {
+        $this->resultsQueue = $queue;
+    }
+
+
+    public function getResultsQueue(array $queue): array
+    {
+        return $this->resultsQueue;
+    }
+
+
     /**
-     * [addUrl description]
-     * @param string       $url             [description]
-     * @param bool|boolean $benchmarkedSite [description]
+     * adds to a queue a site's URL to test
+     *
+     * @param string       $url             URL with or without protocol specified
+     * @param bool|boolean $benchmarkedSite a site that is tested agains another sites
      */
 	public function addUrl(string $url, bool $benchmarkedSite = false): void
     {
@@ -122,24 +136,22 @@ class Benchmark implements BenchmarkInterface
 
 
     /**
-     * [execute description]
-     * @return [type] [description]
+     * executes benchmark for all sites added to the queue
+     * @return void
      */
 	public function execute(): void
     {
-        foreach ($this->resultsQueue as $result) {
-            $this->executeSingle($result);
-        }
+        $this->resultsQueue = array_map([Benchmark::class, 'executeSingle'], $this->resultsQueue);
         $this->benchmarkExecuted = true;
     }
 
 
     /**
-     * [executeSingle description]
-     * @param  BenchmarkResult $result [description]
-     * @return [type]                  [description]
+     * executes single site benchmark
+     * @param  BenchmarkResult $result
+     * @return BenchmarkResult
      */
-    private function executeSingle(BenchmarkResult $result): void
+    private function executeSingle(BenchmarkResult $result): BenchmarkResult
     {
         $time_start = microtime(true);
 
@@ -162,5 +174,7 @@ class Benchmark implements BenchmarkInterface
         if ($siteres) {
             $result->setDiffToBenchmarkedSite($result->getLoadingTime() - $siteres->getLoadingTime());
         }
+
+        return $result;
     }
 }

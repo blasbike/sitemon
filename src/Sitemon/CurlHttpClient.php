@@ -10,9 +10,11 @@ use Sitemon\Interfaces\HttpClientInterface;
 class CurlHttpClient implements HttpClientInterface
 {
     /**
-     * [get description]
-     * @param  string $url website URL to fetch
-     * @return array       set of parameters like HTTP status code(code) and size of fetched page(size)
+     * fetches provided URL
+     *
+     * @param  string $url  website URL to fetch
+     * @return array        set of parameters like HTTP status code(code) and size of fetched page(size)
+     * @throws Exception    if $url is empty or return cURL response is false
      */
     public function get(string $url): array
     {
@@ -20,7 +22,6 @@ class CurlHttpClient implements HttpClientInterface
         if (empty($url)) {
             throw new Exception("Site URL is required");
         }
-
 
         $ch = curl_init();
 
@@ -39,18 +40,14 @@ class CurlHttpClient implements HttpClientInterface
         // returned webpage with headers
         $siteReturn = curl_exec($ch);
 
-        $siteSize = 0;
-
-        $siteStatus = 0;
-
-        if ($siteReturn !== false) {
-
-            $siteSize = strlen($siteReturn);
-
-            // get http code
-            $siteStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        if ($siteReturn === false) {
+            throw new Exception(sprintf('Site "%s" can not be retrived', $url));
         }
 
+        $siteSize = strlen($siteReturn);
+
+        // get http code
+        $siteStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
         return ['code'=>$siteStatus, 'size'=>$siteSize];

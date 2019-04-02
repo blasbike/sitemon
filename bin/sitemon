@@ -7,6 +7,11 @@ use Sitemon\Sitemon;
 use Sitemon\ReportGeneratorText;
 use Sitemon\Actions\BenchmarkAction;
 
+if (count($argv) === 1 or ($argv[1] ?? '') == '--h') {
+	echo 'Sitemon usage:' . PHP_EOL . '      sitemon site1 [site2 ...]'  . PHP_EOL;
+	exit(0);
+}
+
 $sitemon = new Sitemon();
 
 unset($argv[0]);
