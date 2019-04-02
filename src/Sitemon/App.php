@@ -52,7 +52,7 @@ class App
             throw new Exception(sprintf('Route %s is not callable', json_encode($routes[$actionName])));
         }
 
-        call_user_func($routes[$actionName], $this->requestGetArray('params'));
+        call_user_func([new $routes[$actionName][0], $routes[$actionName][1]], $this->requestGetArray('params'));
     }
 
 
