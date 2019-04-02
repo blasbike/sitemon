@@ -14,7 +14,7 @@ use Sitemon\Interfaces\ReportGeneratorInterface;
 class Sitemon
 {
     /**
-     * [benchmark description]
+     * set of tasks to perform a full benchmark
      * @param  string                   $url             site to benchmark
      * @param  array                    $urls            sites to comapre to
      * @param  ReportGeneratorInterface $reportGenerator report generator

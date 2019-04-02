@@ -18,7 +18,6 @@ class CurlHttpClient implements HttpClientInterface
      */
     public function get(string $url): array
     {
-
         if (empty($url)) {
             throw new Exception("Site URL is required");
         }
@@ -41,7 +40,7 @@ class CurlHttpClient implements HttpClientInterface
         $siteReturn = curl_exec($ch);
 
         if ($siteReturn === false) {
-            throw new Exception(sprintf('Site "%s" can not be retrived', $url));
+            //throw new Exception(sprintf('Site "%s" can not be retrived', $url));
         }
 
         $siteSize = strlen($siteReturn);

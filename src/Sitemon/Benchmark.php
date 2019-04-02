@@ -79,15 +79,27 @@ class Benchmark implements BenchmarkInterface
     }
 
 
+    public function getReportGenerator(): ReportGeneratorInterface
+    {
+        return $this->reportGenerator;
+    }
+
+
     public function setResultsQueue(array $queue): void
     {
         $this->resultsQueue = $queue;
     }
 
 
-    public function getResultsQueue(array $queue): array
+    public function getResultsQueue(): array
     {
         return $this->resultsQueue;
+    }
+
+
+    public function getBenchmarkExecuted(): bool
+    {
+        return $this->benchmarkExecuted;
     }
 
 
@@ -100,7 +112,11 @@ class Benchmark implements BenchmarkInterface
 	public function addUrl(string $url, bool $benchmarkedSite = false): void
     {
         if (!empty($url)) {
-            $this->resultsQueue[] = new BenchmarkResult($url, $benchmarkedSite);
+            $result = new BenchmarkResult($url, $benchmarkedSite);
+            $this->resultsQueue[] = $result;
+            if ($benchmarkedSite) {
+                $this->setBenchmarkedSiteResult($result);
+            }
         }
     }
 
@@ -197,11 +213,6 @@ class Benchmark implements BenchmarkInterface
         $result->setHttpCode($httpResult['code']);
         $result->setSize($httpResult['size']);
         $result->setLoadingTime($loadingTime);
-
-        // store a result for time differences calculations
-        if ($result->isBenchmarkedSite()) {
-            $this->setBenchmarkedSiteResult($result);
-        }
 
         $siteres = $this->getBenchmarkedSiteResult();
         if ($siteres) {
