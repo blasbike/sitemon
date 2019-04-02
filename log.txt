@@ -1,3 +1,0 @@
-Report time: 2019-04-02 15:23:11
-[status: 200] 0.22s	:example.com (0s)
-[status: 200] 0.672s	:php.net (+0.452s)
