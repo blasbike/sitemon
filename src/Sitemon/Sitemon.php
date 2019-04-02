@@ -35,18 +35,14 @@ class Sitemon
             // execute benchmark for all added URLs
             $benchmark->execute();
 
+            // store report in a file
             $benchmark->storeReport(new FileWriter(['filename'=>'log.txt']));
 
-            //$msg = new MessageEmail('test@example.com', $report, 'Report subject');
-            //$msg->sendMessage();
-            //
-            //
-            //$msg = new MessageText('+4844446663', $report);
-            //$msg->sendMessage();
+            // send messages if necessary
+            $benchmark->processMessages(new MessageEmail('test@example.com'), new MessageText('+482222333'));
 
-            // set report generator to display it in a web interface or return in command line
-            $benchmark->setReportGenerator($reportGenerator);
-            $report = $benchmark->getReport();
+            // generates a report with a new generator to display it in a web interface or return in command line
+            $report = $benchmark->generateReport($reportGenerator);
         } catch (Exception $ex) {
             return $ex->getMessage();
         }

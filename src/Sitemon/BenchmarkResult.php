@@ -56,7 +56,7 @@ class BenchmarkResult
     }
 
 
-	public function getLoadingTime(int $roundPrecision = 2): float
+	public function getLoadingTime(int $roundPrecision = 3): float
     {
         return round($this->loadingTime, $roundPrecision);
     }

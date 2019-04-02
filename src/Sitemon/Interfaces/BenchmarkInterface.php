@@ -7,22 +7,15 @@ namespace Sitemon\Interfaces;
 interface BenchmarkInterface
 {
     /**
-     * [execute description]
-     * @return [type] [description]
+     * executes benchmark for all URLs
+     * @return void
      */
 	public function execute(): void;
 
 
     /**
-     * [addUrl description]
+     * adds URL to benchmark
      * @param string $url [description]
      */
     public function addUrl(string $url): void;
-
-
-    /**
-     * [getReport description]
-     * @return [type] [description]
-     */
-    public function getReport(): string;
 }

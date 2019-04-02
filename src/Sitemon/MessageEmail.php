@@ -23,7 +23,7 @@ class MessageEmail implements MessageInterface
      * @param string $subject  [description]
      * @param string $message  [description]
      */
-    public function __construct(string $receiver, string $subject, string $message)
+    public function __construct(string $receiver = '', string $subject = '', string $message = '')
     {
         $this->receiver = $receiver;
         $this->subject = $subject;
@@ -33,8 +33,10 @@ class MessageEmail implements MessageInterface
 
     public function sendMessage(): bool
     {
-        mail($this->receiver, $this->subject, $this->message);
-        return true;
+        echo 'sends email to:' . $this->receiver . PHP_EOL;
+        $sent = true;//mail($this->receiver, $this->subject, $this->message);
+
+        return $sent;
     }
 
 

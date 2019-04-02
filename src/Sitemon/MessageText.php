@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Sitemon\Interfaces;
+namespace Sitemon;
 
-use MessageInterface;
+use Sitemon\Interfaces\MessageInterface;
 
 class MessageText implements MessageInterface
 {
     private $mobileNumber;
+
 
     private $message;
 
@@ -18,7 +19,7 @@ class MessageText implements MessageInterface
      * @param string $mobileNumber [description]
      * @param string $message      [description]
      */
-    public function __construct(string $mobileNumber, string $message)
+    public function __construct(string $mobileNumber = '', string $message = '')
     {
         $this->mobileNumber = $mobileNumber;
         $this->message = $message;
@@ -31,8 +32,9 @@ class MessageText implements MessageInterface
      * @param  string $message      [description]
      * @return [type]               [description]
      */
-    public function sendMessage(string $mobileNumber, string $message): bool
+    public function sendMessage(): bool
     {
+        echo 'sends text to:' . $this->mobileNumber . PHP_EOL;
         // dummy method
         // sends $message to $mobileNUmber
         return true;
