@@ -13,10 +13,10 @@ abstract class AbstractAction
      * @return void
      */
 	public static function loadView(string $view, array $data = []): void
-	{
+    {
         if (!file_exists('../src/Sitemon/Views/' . $view . '.php')) {
             throw new Exception(sprintf('View file %s not exists', $view));
         }
         include '../src/Sitemon/Views/' . $view . '.php';
-	}
+    }
 }
