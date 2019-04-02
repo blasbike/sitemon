@@ -86,7 +86,7 @@ class BenchmarkTest extends TestCase
 
     /**
      * Actual full test of all benchmark tasks
-     * test
+     * @test
      */
     public function execute()
     {
