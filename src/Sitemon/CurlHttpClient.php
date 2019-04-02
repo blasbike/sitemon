@@ -42,7 +42,7 @@ class CurlHttpClient implements HttpClientInterface
         $siteReturn = curl_exec($ch);
 
         if ($siteReturn === false) {
-            throw new Exception(sprintf('Site "%s" can not be retrived', $url));
+            throw new Exception(sprintf('Site "%s" can not be retrived' . PHP_EOL, $url));
         }
 
         $siteSize = strlen($siteReturn);
