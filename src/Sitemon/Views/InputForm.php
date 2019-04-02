@@ -20,4 +20,3 @@
     </section>
 <?php
     include 'Footer.php';
-?>
