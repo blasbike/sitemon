@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Sitemon;
 
-use Sitemon\Interfaces\StoreDataInterface;
+use Sitemon\Interfaces\DataStorageInterface;
 
-class FileWriter implements StoreDataInterface
+class FileWriter implements DataStorageInterface
 {
     private $fileName;
 

@@ -9,7 +9,7 @@ use Sitemon\BenchmarkResult;
 use Sitemon\Interfaces\BenchmarkInterface;
 use Sitemon\Interfaces\HttpClientInterface;
 use Sitemon\Interfaces\ReportGeneratorInterface;
-use Sitemon\Interfaces\StoreDataInterface;
+use Sitemon\Interfaces\DataStorageInterface;
 
 class Benchmark implements BenchmarkInterface
 {
@@ -190,10 +190,10 @@ class Benchmark implements BenchmarkInterface
 
     /**
      * [storeReport description]
-     * @param  StoreDataInterface $store [description]
+     * @param  DataStorageInterface $store [description]
      * @return [type]                    [description]
      */
-    public function storeReport(StoreDataInterface $store): void
+    public function storeReport(DataStorageInterface $store): void
     {
         $store->storeData($this->getReport());
     }
