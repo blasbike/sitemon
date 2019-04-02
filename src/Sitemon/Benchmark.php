@@ -202,17 +202,11 @@ class Benchmark implements BenchmarkInterface
      */
     private function executeSingle(BenchmarkResult $result): BenchmarkResult
     {
-        $time_start = microtime(true);
-
         $httpResult = $this->httpClient->get($result->getSiteUrl());
-
-        $time_end = microtime(true);
-
-        $loadingTime = $time_end - $time_start;
 
         $result->setHttpCode($httpResult['code']);
         $result->setSize($httpResult['size']);
-        $result->setLoadingTime($loadingTime);
+        $result->setLoadingTime($httpResult['time']);
 
         $siteres = $this->getBenchmarkedSiteResult();
         if ($siteres) {

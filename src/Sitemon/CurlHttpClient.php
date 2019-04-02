@@ -22,6 +22,8 @@ class CurlHttpClient implements HttpClientInterface
             throw new Exception("Site URL is required");
         }
 
+        $time_start = microtime(true);
+
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (compatible; Firefox)');
@@ -49,6 +51,8 @@ class CurlHttpClient implements HttpClientInterface
         $siteStatus = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        return ['code'=>$siteStatus, 'size'=>$siteSize];
+        $loadingTime = microtime(true) - $time_start;
+
+        return ['code'=>$siteStatus, 'size'=>$siteSize, 'time'=>$loadingTime];
     }
 }
