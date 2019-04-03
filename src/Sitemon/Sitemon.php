@@ -6,6 +6,8 @@ namespace Sitemon;
 
 use \Exception;
 use Sitemon\Interfaces\ReportGeneratorInterface;
+use Sitemon\Notifier;
+use Sitemon\ConditionSlowerThenOthers;
 
 /**
  * Sitemon class to perform all benchmark tasks.
@@ -35,11 +37,29 @@ class Sitemon
             // execute benchmark for all added URLs
             $benchmark->execute();
 
-            // store report in a file
-            $benchmark->storeReport(new FileWriter(['filename'=>'log.txt']));
+            $report = $benchmark->getGeneratedReport();
 
-            // send messages if necessary
-            $benchmark->processMessages(new MessageEmail('blase@bikestats.pl'), new MessageText('+482222333'));
+            // store report in a file
+            $storage = new FileWriter(['filename'=>'log.txt']);
+            $storage->storeData($report);
+
+
+            // sends notifications if conditions are met
+            $notifier = new Notifier();
+            // set up two different conditions for notifier
+            $notifier->addNotification(
+                new MessageEmail('blase@bikestats.pl', 'Site is slower', $report),
+                new ConditionSlowerThenOthers(
+                    $benchmark->getResultsQueue(),
+                    $benchmark->getBenchmarkedSiteResult(), 1, 1)
+            );
+            $notifier->addNotification(
+                new MessageText('+482222333', $report),
+                new ConditionSlowerThenOthers(
+                    $benchmark->getResultsQueue(),
+                    $benchmark->getBenchmarkedSiteResult(), 2, 1)
+            );
+            $notifier->notify();
 
             // generates a report with a new generator to display it in a web interface or return in command line
             $report = $benchmark->generateReport($reportGenerator);

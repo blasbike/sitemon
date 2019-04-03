@@ -25,10 +25,17 @@ class BenchmarkResult
     private $diffToBenchmarkedSite;
 
 
-    public function __construct(string $siteUrl, bool $benchmarkedSite = false)
+    public function __construct(string $siteUrl,
+                                bool $benchmarkedSite = false,
+                                float $loadingTime = 0,
+                                int $size = 0,
+                                int $httpCode = 0)
     {
         $this->siteUrl = $siteUrl;
         $this->benchmarkedSite = $benchmarkedSite;
+        $this->loadingTime = $loadingTime;
+        $this->size = $size;
+        $this->httpCode = $httpCode;
     }
 
 
