@@ -17,6 +17,9 @@ abstract class AbstractAction
         if (!file_exists('../src/Sitemon/Views/' . $view . '.php')) {
             throw new Exception(sprintf('View file %s not exists', $view));
         }
+        // TODO: ob_start();
+        // include( dirname ( __FILE__ ) . '/included.php' );
         include '../src/Sitemon/Views/' . $view . '.php';
+        //return ob_get_clean();
     }
 }

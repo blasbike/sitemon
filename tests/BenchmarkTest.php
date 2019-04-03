@@ -32,7 +32,7 @@ class BenchmarkTest extends TestCase
      *
      * @test
      */
-    public function isResultSlowerXTimesThenXOthers()
+    public function executeMock()
     {
 
         $client = $this->createMock('Sitemon\CurlHttpClient', ['get']);
@@ -61,22 +61,7 @@ class BenchmarkTest extends TestCase
 
         $benchmark->execute();
 
-        $benchmark->storeReport(new FileWriter(['filename'=>'log.txt']));
-
         $this->assertTrue($benchmark->getBenchmarkExecuted());
-
-
-        $this->assertTrue($benchmark->isResultSlowerXTimesThenXOthers(
-                $benchmark->getBenchmarkedSiteResult(), 2, 1
-            ));
-
-        $this->assertTrue($benchmark->isResultSlowerXTimesThenXOthers(
-                $benchmark->getBenchmarkedSiteResult(), 3, 1
-            ));
-
-        $this->assertFalse($benchmark->isResultSlowerXTimesThenXOthers(
-                $benchmark->getBenchmarkedSiteResult(), 4, 1
-            ));
 
         $report = $benchmark->getGeneratedReport();
         $this->assertStringContainsString('example.com', $report);
@@ -102,11 +87,7 @@ class BenchmarkTest extends TestCase
         $this->assertStringContainsString('example.com', $report);
         $this->assertStringContainsString('php.net', $report);
 
-
-        $benchmark->storeReport(new FileWriter(['filename'=>'log.txt']));
-
         $this->assertTrue($benchmark->getBenchmarkExecuted());
         $this->assertInstanceOf(ReportGeneratorText::class, $benchmark->getReportGenerator());
-        $this->assertFileExists('log.txt');
     }
 }
